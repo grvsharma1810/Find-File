@@ -1,0 +1,30 @@
+#include "stdafx.h"
+#include <windows.h>
+#include <string>
+#include <iostream.h>
+#include <vector>
+using namespace std;
+int num_dirs(const char* path);
+int main(int argc, char *argv[])
+{
+    WIN32_FIND_DATA FindFileData;
+    HANDLE hFind;
+    string sPath;
+    vector<string> MyVect;
+    sPath.assign("C:\\Documents and Settings\\yugesh\\Desktop\\*");
+    hFind = FindFirstFile(sPath.data(), &FindFileData);
+    do
+    {
+        if(FindFileData.dwFileAttributes == 16)
+        {
+            MyVect.push_back(FindFileData.cFileName);
+        }
+    }while (FindNextFile(hFind, &FindFileData));
+    FindClose(hFind);
+    for(int i =0; i<MyVect.size(); i++)
+
+        cout<<MyVect.at(i).data()<<endl;
+
+    return 0;
+
+}
